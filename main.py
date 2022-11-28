@@ -2,14 +2,16 @@
 import pygame
 from pygame.locals import *
 import constants
+import time
 
 #Creat the Class dog
 class Dog():
     def __init__(self, parent_window):
         self.parent_window = parent_window
         self.dog_body = pygame.image.load("images\Dog_body.png")
-        self.x = 100
+        self.x = 200
         self.y = 100
+        self.direction = "right"
 
     def draw(self):
         self.parent_window.fill(constants.BG_COLOR)
@@ -17,20 +19,32 @@ class Dog():
         pygame.display.flip()
 
     def move_left(self):   
-        self.x -= 10
-        self.draw()
+        self.direction = "left"
 
     def move_right(self):   
-        self.x += 10
-        self.draw()
+        self.direction = "right"
 
     def move_up(self):   
-        self.y -= 10
-        self.draw()
+        self.direction = "up"
 
     def move_dowm(self):   
-        self.y += 10
+        self.direction = "dowm"
+
+    def walk(self):
+        if self.direction == "left":
+            self.x -= 10
+
+        if self.direction == "right":
+            self.x += 10
+
+        if self.direction == "up":
+            self.y -= 10
+        
+        if self.direction == "dowm":
+            self.y += 10
+
         self.draw()
+
 
 #Creat the Class game
 class Game():
@@ -59,7 +73,7 @@ class Game():
 
                     if event.key == K_LEFT:
                         self.dog.move_left()
-
+    
                     if event.key == K_RIGHT:
                         self.dog.move_right()
 
@@ -71,6 +85,9 @@ class Game():
 
                 elif event.type == QUIT:
                     running = False
+
+            self.dog.walk()     
+            time.sleep(.1)
 
 game = Game()
 
