@@ -6,16 +6,21 @@ import time
 
 #Creat the Class dog
 class Dog():
-    def __init__(self, parent_window):
+    def __init__(self, parent_window, length):
         self.parent_window = parent_window
         self.dog_body = pygame.image.load("images\Dog_body.png")
-        self.x = 200
-        self.y = 100
         self.direction = "right"
+
+        self.length = length
+        self.x = [64]*length
+        self.y = [64]*length
 
     def draw(self):
         self.parent_window.fill(constants.BG_COLOR)
-        self.parent_window.blit(self.dog_body, (self.x, self.y))
+
+        for i in range(self.length):
+
+            self.parent_window.blit(self.dog_body, (self.x[i], self.y[i]))
         pygame.display.flip()
 
     def move_left(self):   
@@ -31,17 +36,23 @@ class Dog():
         self.direction = "dowm"
 
     def walk(self):
+        #Update body 
+        for i in range(self.length-1, 0, -1):
+            self.x[i] = self.x[i-1]
+            self.y[i] = self.y[i-1]
+
+        # Update head
         if self.direction == "left":
-            self.x -= 10
+                self.x[0] -= constants.SIZE_DOG
 
         if self.direction == "right":
-            self.x += 10
+                self.x[0] += constants.SIZE_DOG
 
         if self.direction == "up":
-            self.y -= 10
-        
+                self.y[0] -= constants.SIZE_DOG
+            
         if self.direction == "dowm":
-            self.y += 10
+                self.y[0] += constants.SIZE_DOG
 
         self.draw()
 
@@ -56,7 +67,7 @@ class Game():
         icon = pygame.image.load("images\icon.png")
         pygame.display.set_icon(icon)
 
-        self.dog = Dog(self.window)
+        self.dog = Dog(self.window, 3)
         self.dog.draw()
 
         pygame.display.update()
