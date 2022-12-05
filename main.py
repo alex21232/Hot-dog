@@ -4,6 +4,21 @@ from pygame.locals import *
 import constants
 import time
 
+#Creeat the Class Food
+class Food():
+    def __init__(self, parent_window):
+        self.image = pygame.image.load("images\Galleta.png")
+        self.parent_window = parent_window
+        self.x = 120
+        self.y = 120
+
+    def draw(self):
+        self.parent_window.blit(self.image, (self.x, self.y))
+        pygame.display.flip()
+
+         
+
+
 #Creat the Class dog
 class Dog():
     def __init__(self, parent_window, length):
@@ -70,6 +85,10 @@ class Game():
         self.dog = Dog(self.window, 3)
         self.dog.draw()
 
+        self.food = Food(self.window)
+
+        self.food.draw()
+
         pygame.display.update()
         
 #       
@@ -97,7 +116,10 @@ class Game():
                 elif event.type == QUIT:
                     running = False
 
-            self.dog.walk()     
+            self.dog.walk()
+
+            self.food.draw()
+
             time.sleep(.1)
 
 game = Game()
