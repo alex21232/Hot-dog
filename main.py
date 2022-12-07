@@ -3,6 +3,7 @@ import pygame
 from pygame.locals import *
 import constants
 import time
+import random
 
 #Creeat the Class Food
 class Food():
@@ -16,7 +17,10 @@ class Food():
         self.parent_window.blit(self.image, (self.x, self.y))
         pygame.display.flip()
 
-         
+    #move method
+    def move(self):
+        self.x = random.randint(50, 950)
+        self.y = random.randint(50, 550)        
 
 
 #Creat the Class dog
@@ -29,6 +33,11 @@ class Dog():
         self.length = length
         self.x = [64]*length
         self.y = [64]*length
+
+    def increse_length(self):
+        self.length += 1
+        self.x.append(-1)
+        self.y.append(-1)
 
     def draw(self):
         self.parent_window.fill(constants.BG_COLOR)
@@ -90,7 +99,23 @@ class Game():
         self.food.draw()
 
         pygame.display.update()
-        
+
+    # Collition logic
+    def is_collition(self, x1, y1, x2, y2):
+        if x1 >= x2 and x1 < x2 + constants.SIZE_FOOD:
+            if y1 >= y2 and y1 < y2 + constants.SIZE_FOOD:
+                return True
+        return False
+
+    # Play mathod
+    def Play(self):
+        self.dog.walk()
+        self.food.draw()
+
+        if self.is_collition(self.dog.x[0], self.dog.y[0], self.food.x, self.food.y):
+            self.dog.increse_length()
+            self.food.move()
+
 #       
     def run(self):
         running = True
@@ -116,11 +141,8 @@ class Game():
                 elif event.type == QUIT:
                     running = False
 
-            self.dog.walk()
-
-            self.food.draw()
-
-            time.sleep(.1)
+            self.Play()
+            time.sleep(.2)
 
 game = Game()
 

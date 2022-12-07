@@ -7,7 +7,15 @@ SIZE = (SCREEN_WIDTH, SCREEN_HEIGT)
 TITLE = "DOG"
 
 # Colors
-BG_COLOR = (60,176,67)
+BG_COLOR = "#18A558"
 
 # Size Dog body
 SIZE_DOG = 64
+
+# Food size
+SIZE_FOOD = 40
+
+#Score
+SCORE = 0
+SCORE_X = 10
+SCORE_Y = 10
