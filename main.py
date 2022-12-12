@@ -118,6 +118,11 @@ class Game():
             self.dog.increse_length()
             self.food.move()
 
+        # Snake colliding with itself
+        for i in range(2, self.dog.length):
+            if self.is_collition(self.dog.x[0], self.dog.y[0], self.dog.x[i], self.dog.y[i]):
+                print("collition")
+
     # show score
     def display_score(self):
         font = pygame.font.Font("font.ttf", 60)

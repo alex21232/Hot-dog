@@ -10,7 +10,7 @@ TITLE = "DOG"
 BG_COLOR = "#18A558"
 
 # Size Dog body
-SIZE_DOG = 64
+SIZE_DOG = 40
 
 # Food size
 SIZE_FOOD = 40
