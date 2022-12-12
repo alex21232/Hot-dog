@@ -19,8 +19,8 @@ class Food():
 
     #move method
     def move(self):
-        self.x = random.randint(50, 950)
-        self.y = random.randint(50, 550)        
+        self.x = random.randint(40, 950)
+        self.y = random.randint(40, 550)        
 
 
 #Creat the Class dog
@@ -111,11 +111,18 @@ class Game():
     def Play(self):
         self.dog.walk()
         self.food.draw()
+        self.display_score()
+        pygame.display.flip()
 
         if self.is_collition(self.dog.x[0], self.dog.y[0], self.food.x, self.food.y):
             self.dog.increse_length()
             self.food.move()
 
+    # show score
+    def display_score(self):
+        font = pygame.font.Font("font.ttf", 60)
+        score = font.render(f"Score: {self.dog.length - 3}", True, (255, 255, 255))
+        self.window.blit(score, (constants.SCORE_X, constants.SCORE_Y))
 #       
     def run(self):
         running = True
@@ -142,7 +149,7 @@ class Game():
                     running = False
 
             self.Play()
-            time.sleep(.2)
+            time.sleep(0.2)
 
 game = Game()
 
